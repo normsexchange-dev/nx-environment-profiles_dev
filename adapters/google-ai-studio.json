@@ -1,0 +1,17 @@
+{
+  "$schema": "../schemas/runtime-adapter.schema.json",
+  "schema_version": "1.0.0",
+  "adapter_id": "google-ai-studio",
+  "runtime_family": "google-ai-studio",
+  "instruction_loading": {"status": "DEGRADED", "mechanism": "Saved prompt system instructions exist, but repository-wide automatic AGENTS.md/GEMINI.md loading is not documented for AI Studio Build mode.", "evidence": "official-docs-2026-08-29"},
+  "filesystem": {"status": "DEGRADED", "mechanism": "Build mode manages an application file tree in a hosted development container; general sovereign host filesystem access is not documented.", "evidence": "official-docs-2026-08-29"},
+  "git": {"status": "DEGRADED", "mechanism": "Documented GitHub import and two-way sync UI, not a general Git CLI or governed branch/lease executor.", "evidence": "official-docs-2026-08-29"},
+  "secure_github": {"status": "CONDITIONAL", "mechanism": "AI Studio Settings can link/import GitHub repositories; exact installation permissions and least-privilege suitability require owner review.", "evidence": "official-docs-2026-08-29"},
+  "persistent_storage": {"status": "CONDITIONAL", "mechanism": "Application code persists through AI Studio/GitHub; deployed apps may connect to network storage or Firebase, but storage is application state, not authoritative operations unless explicitly adopted.", "evidence": "official-docs-2026-08-29"},
+  "background_scheduling": {"status": "UNKNOWN", "mechanism": "No official AI Studio Build-mode background scheduler for persistent agents was verified.", "evidence": "official-docs-2026-08-29"},
+  "cross_prompt_activation": {"status": "UNKNOWN", "mechanism": "No independent cross-prompt activation mechanism was verified.", "evidence": "official-docs-2026-08-29"},
+  "subagents": {"status": "UNKNOWN", "mechanism": "The Build agent manages multiple files, but a governed user-configurable multi-agent/subagent interface was not verified.", "evidence": "official-docs-2026-08-29"},
+  "inbox_events": {"status": "NO-GO", "mechanism": "No native inbox polling or event loop was verified; a separately deployed service would be required.", "evidence": "official-docs-2026-08-29"},
+  "secret_storage": {"status": "CONDITIONAL", "mechanism": "Build mode documents server-side Secrets for application keys; never put repository credentials in source, client code, prompts, or model memory.", "evidence": "official-docs-2026-08-29"},
+  "deployment_boundary": {"status": "CONDITIONAL", "mechanism": "Publishing deploys a separate Cloud Run service and is an external mutation requiring separate authority; this profile performs none.", "evidence": "official-docs-2026-08-29"}
+}

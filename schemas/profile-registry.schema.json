@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/profile-registry.schema.json",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "profiles"],
+  "properties": {"$schema": {"type": "string"}, "schema_version": {"const": "1.0.0"}, "profiles": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["profile_id", "version", "lifecycle_state", "repository", "manifest", "annotated_tag", "backend", "supersedes"], "properties": {"profile_id": {"type": "string", "minLength": 1}, "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"}, "lifecycle_state": {"enum": ["experimental", "stable", "deprecated", "retired"]}, "repository": {"type": "string", "minLength": 1}, "manifest": {"type": "string", "minLength": 1}, "annotated_tag": {"type": "string", "minLength": 1}, "backend": {"type": "string", "minLength": 1}, "supersedes": {"type": ["string", "null"]}}}}}
+}

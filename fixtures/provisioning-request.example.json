@@ -1,0 +1,18 @@
+{
+  "environment_owner": "example-owner",
+  "environment_id": "example-lab",
+  "genesis": {"state": "verified", "environment_id": "example-lab", "anchor": "fictional-genesis-anchor-0001"},
+  "mode": "persistent-multi-agent",
+  "created_at": "2030-01-01T00:00:00.000Z",
+  "existing_repositories": {},
+  "repository_names": {
+    "nx-agent-control": "nx-agent-control",
+    "nx-agent-ops": "nx-agent-ops",
+    "nx-communications": "nx-communications"
+  },
+  "visibility": {
+    "nx-agent-control": "private",
+    "nx-agent-ops": "private",
+    "nx-communications": "public"
+  }
+}

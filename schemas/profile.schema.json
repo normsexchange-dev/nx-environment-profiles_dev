@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/profile.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "profile_version", "lifecycle_state", "publisher", "backend_contract", "backend_neutral", "recommended_for_norms_long_running", "environment_modes", "repository_functions", "runtime_adapters", "provision_once_enroll_repeatedly", "private_operations_required", "external_channels_separate", "authority_rules", "release"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "1.0.0"},
+    "profile_id": {"const": "persistent-multi-agent-github"},
+    "profile_version": {"const": "1.0.0"},
+    "lifecycle_state": {"enum": ["experimental", "stable", "deprecated", "retired"]},
+    "publisher": {"type": "object", "additionalProperties": false, "required": ["owner", "repository", "release_tag", "tag_object", "tag_target"], "properties": {"owner": {"type": "string", "minLength": 1}, "repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"}, "release_tag": {"type": "string", "minLength": 1}, "tag_object": {"type": "string", "minLength": 1}, "tag_target": {"type": "string", "minLength": 1}}},
+    "backend_contract": {"const": "github-v1"},
+    "backend_neutral": {"const": true},
+    "recommended_for_norms_long_running": {"type": "boolean"},
+    "environment_modes": {"type": "array", "uniqueItems": true, "minItems": 4, "items": {"enum": ["session-only", "persistent-single-agent", "persistent-multi-agent", "enroll-existing"]}},
+    "repository_functions": {"type": "string", "minLength": 1},
+    "runtime_adapters": {"type": "array", "uniqueItems": true, "minItems": 7, "items": {"type": "string", "minLength": 1}},
+    "provision_once_enroll_repeatedly": {"const": true},
+    "private_operations_required": {"const": true},
+    "external_channels_separate": {"const": true},
+    "authority_rules": {"type": "array", "minItems": 5, "items": {"type": "string", "minLength": 1}},
+    "release": {"type": "object", "additionalProperties": false, "required": ["semver", "annotated_tag_required", "immutable", "rollback_catalog"], "properties": {"semver": {"const": "1.0.0"}, "annotated_tag_required": {"const": true}, "immutable": {"const": true}, "rollback_catalog": {"type": "string", "minLength": 1}}}
+  }
+}

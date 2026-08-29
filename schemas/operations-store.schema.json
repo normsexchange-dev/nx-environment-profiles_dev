@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/operations-store.schema.json",
+  "type": "object", "additionalProperties": false, "required": ["schema_version", "environment_id", "append_only_directories", "mutable_cas_directories", "single_writer_rules", "retention"],
+  "properties": {"schema_version": {"const": "1.0.0"}, "environment_id": {"type": "string", "minLength": 1}, "append_only_directories": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}, "mutable_cas_directories": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}, "single_writer_rules": {"type": "array", "items": {"type": "string"}}, "retention": {"type": "string", "minLength": 1}}
+}

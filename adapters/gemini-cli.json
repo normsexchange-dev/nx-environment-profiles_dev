@@ -1,0 +1,17 @@
+{
+  "$schema": "../schemas/runtime-adapter.schema.json",
+  "schema_version": "1.0.0",
+  "adapter_id": "gemini-cli",
+  "runtime_family": "google-gemini-cli",
+  "instruction_loading": {"status": "GO", "mechanism": "GEMINI.md or configured context file, with generated adapter routing to project policy.", "evidence": "official-runtime-documentation"},
+  "filesystem": {"status": "CONDITIONAL", "mechanism": "Local runtime tools and sandbox.", "evidence": "runtime-preflight-required"},
+  "git": {"status": "CONDITIONAL", "mechanism": "Local Git tool availability and repository policy.", "evidence": "runtime-preflight-required"},
+  "secure_github": {"status": "CONDITIONAL", "mechanism": "Normal GitHub OAuth/app/device authentication outside prompts.", "evidence": "runtime-preflight-required"},
+  "persistent_storage": {"status": "CONDITIONAL", "mechanism": "Git repositories and approved machine-local state.", "evidence": "profile-backend"},
+  "background_scheduling": {"status": "UNKNOWN", "mechanism": "No platform-neutral assumption; external scheduler evidence required.", "evidence": "not-live-verified"},
+  "cross_prompt_activation": {"status": "UNKNOWN", "mechanism": "Requires external activation evidence.", "evidence": "not-live-verified"},
+  "subagents": {"status": "CONDITIONAL", "mechanism": "Gemini CLI subagents where supported and explicitly configured.", "evidence": "official-runtime-documentation"},
+  "inbox_events": {"status": "CONDITIONAL", "mechanism": "Explicit polling or external event source.", "evidence": "profile-backend"},
+  "secret_storage": {"status": "CONDITIONAL", "mechanism": "OS/provider secret store outside source and prompts.", "evidence": "deployment-specific"},
+  "deployment_boundary": {"status": "NO-GO", "mechanism": "Profile adoption does not deploy services.", "evidence": "profile-policy"}
+}

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/internal-message.schema.json",
+  "type": "object", "additionalProperties": false, "required": ["schema_version", "message_id", "environment_id", "from_agent", "to", "goal_id", "kind", "body", "created_at", "immutable"],
+  "properties": {"schema_version": {"const": "1.0.0"}, "message_id": {"type": "string", "minLength": 12}, "environment_id": {"type": "string", "minLength": 1}, "from_agent": {"type": "string", "minLength": 1}, "to": {"type": "string", "minLength": 1}, "goal_id": {"type": ["string", "null"]}, "kind": {"enum": ["request", "result", "notice", "correction", "withdrawal"]}, "body": {"type": "object"}, "created_at": {"type": "string", "minLength": 1}, "immutable": {"const": true}}
+}

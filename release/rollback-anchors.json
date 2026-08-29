@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "known_good": {
+    "control": {
+      "repository": "normsexchange-dev/ai-agent-control",
+      "tag": "standard-2026.08.28.1",
+      "tag_object": "b69c53657dbb9e34f3be5ed503b1730a0d8cffc8",
+      "tag_target": "1c0d275d8ff80c333557b78de4377ea02006d3aa"
+    },
+    "communications": {
+      "repository": "normsexchange-dev/nx-codex-communications_dev",
+      "tag": "communications-v0.6.0",
+      "tag_object": "500d084b11d5b979a05c583e5ce401683e4f0aa0",
+      "tag_target": "9a545b4f96d6cce713e9ab1d8e46aea65b387ac7"
+    }
+  },
+  "rule": "Rollback resolves exact annotated tag objects and targets in an isolated checkout; it never rewrites an immutable release or copies remembered text."
+}

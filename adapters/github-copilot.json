@@ -1,0 +1,17 @@
+{
+  "$schema": "../schemas/runtime-adapter.schema.json",
+  "schema_version": "1.0.0",
+  "adapter_id": "github-copilot",
+  "runtime_family": "github-copilot",
+  "instruction_loading": {"status": "CONDITIONAL", "mechanism": "Repository custom instructions and agent instruction files vary by Copilot surface.", "evidence": "official-runtime-documentation"},
+  "filesystem": {"status": "CONDITIONAL", "mechanism": "Surface-specific workspace access.", "evidence": "runtime-preflight-required"},
+  "git": {"status": "CONDITIONAL", "mechanism": "Surface-specific Git or pull-request workflow.", "evidence": "runtime-preflight-required"},
+  "secure_github": {"status": "CONDITIONAL", "mechanism": "GitHub identity and repository installation permissions.", "evidence": "runtime-preflight-required"},
+  "persistent_storage": {"status": "CONDITIONAL", "mechanism": "GitHub repositories; no private model memory is assumed.", "evidence": "profile-backend"},
+  "background_scheduling": {"status": "UNKNOWN", "mechanism": "Surface-specific; external workflow evidence required.", "evidence": "not-live-verified"},
+  "cross_prompt_activation": {"status": "UNKNOWN", "mechanism": "Surface-specific activation evidence required.", "evidence": "not-live-verified"},
+  "subagents": {"status": "UNKNOWN", "mechanism": "Do not infer from custom-agent support.", "evidence": "not-live-verified"},
+  "inbox_events": {"status": "CONDITIONAL", "mechanism": "GitHub events/workflows only when separately configured and authorized.", "evidence": "deployment-specific"},
+  "secret_storage": {"status": "CONDITIONAL", "mechanism": "GitHub Actions or environment secrets outside source and prompts.", "evidence": "deployment-specific"},
+  "deployment_boundary": {"status": "NO-GO", "mechanism": "Profile adoption does not deploy services.", "evidence": "profile-policy"}
+}

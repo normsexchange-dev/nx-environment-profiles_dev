@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/environment-adoption.schema.json",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "adoption_id", "environment_id", "profile_id", "profile_version", "decision", "proposal_digest", "owner_authority_reference", "adopted_repositories", "existing_state_preserved", "decided_at"],
+  "properties": {"$schema": {"type": "string"}, "schema_version": {"const": "1.0.0"}, "adoption_id": {"type": "string", "minLength": 12}, "environment_id": {"type": "string", "minLength": 1}, "profile_id": {"const": "persistent-multi-agent-github"}, "profile_version": {"const": "1.0.0"}, "decision": {"enum": ["adopt", "reject", "defer", "fork", "specialize"]}, "proposal_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "owner_authority_reference": {"type": "string", "minLength": 1}, "adopted_repositories": {"type": "array", "items": {"type": "string"}}, "existing_state_preserved": {"const": true}, "decided_at": {"type": "string", "minLength": 1}}
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "fictional": true,
+  "environment_id": "example-lab",
+  "agents": [
+    {"agent_id": "EXAMPLE_AGENT_A", "runtime_adapter": "codex"},
+    {"agent_id": "EXAMPLE_AGENT_B", "runtime_adapter": "gemini-cli"}
+  ],
+  "goal_id": "example-goal-0001",
+  "resource_id": "example-resource-0001"
+}
