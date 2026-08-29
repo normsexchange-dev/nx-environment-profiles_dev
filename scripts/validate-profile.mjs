@@ -40,9 +40,11 @@ function walk(directory, relative = '') {
 
 try {
   const branchIndex = process.argv.indexOf('--branch');
-  assert(branchIndex >= 0 && process.argv[branchIndex + 1], 'branch_required');
-  const branch = process.argv[branchIndex + 1];
+  const actualBranch = git(['branch', '--show-current']);
+  const branch = branchIndex >= 0 ? process.argv[branchIndex + 1] : actualBranch;
+  assert(branch, 'branch_required');
   assert(branch === 'main' || branch === TAG || /^agent\/[A-Za-z0-9_]+\/[a-z0-9.-]+$/.test(branch), 'branch_invalid');
+  if (actualBranch) assert(branch === actualBranch, 'branch_mismatch', { requested: branch, actual: actualBranch });
   const files = walk(root);
   for (const file of REQUIRED) assert(files.includes(file), 'required_file_missing', { file });
   assert(fs.readFileSync(path.join(root, 'VERSION'), 'utf8').trim() === '1.0.0', 'version_invalid');

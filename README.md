@@ -39,7 +39,7 @@ Legacy Codex names remain valid through explicit compatibility mapping: `ai-agen
 node scripts/plan-provisioning.mjs --request fixtures/provisioning-request.example.json --output <proposal.json>
 node scripts/materialize-profile.mjs --proposal <proposal.json> --output <empty-directory>
 node scripts/enroll-agent.mjs --root <materialized-directory> --request fixtures/enrollment-request-agent-a.json
-node scripts/validate-profile.mjs --branch main
+node scripts/validate-profile.mjs
 node --test tests/*.test.mjs
 ```
 
