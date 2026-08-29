@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 import {
   ProfileError, acquireLease, acknowledgeInternalMessage, assertChannelWrite, assertSafeContent, buildProvisioningProposal,
-  enrollAgent, materializeProfile, proposeExternalMessage, publishImmutable, readJson, releaseLease, sha256,
+  enrollAgent, expireLease, materializeProfile, proposeExternalMessage, publishImmutable, readJson, releaseLease, renewLease, sha256,
   stableStringify, updateReaderState, validateCapabilityDeclaration
 } from '../scripts/lib/profile-core.mjs';
 
@@ -47,6 +47,7 @@ test('03 exact dry-run repository proposal is deterministic', () => {
   assert.equal(stableStringify(left), stableStringify(readJson(path.join(root, 'fixtures/provisioning-proposal.example.json'))));
   assert.equal(left.dry_run, true);
   assert.deepEqual(left.repositories.map((item) => item.name), ['example-owner/nx-agent-control', 'example-owner/nx-agent-ops', 'example-owner/nx-communications']);
+  assert.deepEqual(left.requested_permissions.map((item) => item.level), ['administration', 'administration', 'administration']);
 });
 
 test('04 materialization creates empty control and operations stores', (t) => {
@@ -81,6 +82,15 @@ test('08 concurrent lease acquisition loses safely', (t) => {
   const { destination } = fixtureRoot(t);
   acquireLease(destination, { resource_id: 'example-resource', owner_agent: 'EXAMPLE_AGENT_B', goal_id: 'example-goal', observed_digest: null }, new Date('2030-01-01T00:21:00.000Z'));
   expectCode(() => acquireLease(destination, { resource_id: 'example-resource', owner_agent: 'EXAMPLE_AGENT_A', goal_id: 'other-goal', observed_digest: null }, new Date('2030-01-01T00:21:01.000Z')), 'lease_compare_and_swap_lost');
+});
+
+test('08a active lease renews only through observed-state CAS', (t) => {
+  const { destination } = fixtureRoot(t);
+  const acquired = acquireLease(destination, { resource_id: 'example-renewal', owner_agent: 'EXAMPLE_AGENT_B', goal_id: 'example-goal', observed_digest: null }, new Date('2030-01-01T00:21:00.000Z'));
+  const renewed = renewLease(destination, { resource_id: 'example-renewal', owner_agent: 'EXAMPLE_AGENT_B', lease_id: acquired.lease.lease_id, observed_digest: acquired.digest, ttl_seconds: 1200 }, new Date('2030-01-01T00:22:00.000Z'));
+  assert.equal(renewed.status, 'RENEWED');
+  assert.equal(renewed.lease.generation, 2);
+  expectCode(() => renewLease(destination, { resource_id: 'example-renewal', owner_agent: 'EXAMPLE_AGENT_B', lease_id: acquired.lease.lease_id, observed_digest: acquired.digest }), 'lease_compare_and_swap_lost');
 });
 
 test('09 Agent B publishes an internal result', (t) => {
@@ -119,9 +129,21 @@ test('13 a third agent enrolls without duplicating repositories', (t) => {
   third.agent_id = 'EXAMPLE_AGENT_C';
   third.enrollments[0].agent_id = third.agent_id;
   third.enrollments[0].enrollment_id = 'enrollment-agent-c-ops';
-  const repositorySnapshot = stableStringify(proposal.repositories);
+  const discovery = structuredClone(baseRequest);
+  discovery.mode = 'enroll-existing';
+  discovery.existing_repositories = Object.fromEntries(proposal.repositories.map((item) => [item.function_id, item.name]));
+  discovery.agent_request = third;
+  const enrollmentProposal = buildProvisioningProposal(discovery);
+  assert.ok(enrollmentProposal.repositories.every((item) => item.action === 'connect-existing'));
+  assert.deepEqual(enrollmentProposal.requested_permissions.map((item) => item.level), ['contents-write', 'contents-write', 'contents-read']);
+  assert.equal(enrollmentProposal.agent_request.agent_id, third.agent_id);
+  const requestDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'nx-enrollment-request-'));
+  t.after(() => fs.rmSync(requestDirectory, { recursive: true, force: true }));
+  const materializedRequest = materializeProfile(enrollmentProposal, requestDirectory);
+  assert.equal(materializedRequest.status, 'ENROLLMENT_PROPOSAL');
+  assert.equal(readJson(path.join(requestDirectory, '.nx-profile/enrollment-request.json')).agent.agent_id, third.agent_id);
+  assert.equal(fs.existsSync(path.join(requestDirectory, '.nx-profile/control')), false);
   enrollAgent(destination, third);
-  assert.equal(stableStringify(proposal.repositories), repositorySnapshot);
   assert.equal(readJson(path.join(destination, '.nx-profile/control/agent-registry.json')).agents.length, 2);
 });
 
@@ -253,6 +275,15 @@ test('34 adverse: stale lease release loses compare-and-swap', (t) => {
   const { destination } = fixtureRoot(t);
   const acquired = acquireLease(destination, { resource_id: 'example-resource', owner_agent: 'EXAMPLE_AGENT_A', goal_id: 'example-goal', observed_digest: null }, new Date('2030-01-01T00:31:00.000Z'));
   expectCode(() => releaseLease(destination, { resource_id: 'example-resource', owner_agent: 'EXAMPLE_AGENT_A', lease_id: acquired.lease.lease_id, observed_digest: '0'.repeat(64) }), 'lease_compare_and_swap_lost');
+});
+
+test('34a expired lease transitions only after its deadline and observed-state CAS', (t) => {
+  const { destination } = fixtureRoot(t);
+  const acquired = acquireLease(destination, { resource_id: 'example-expiry', owner_agent: 'EXAMPLE_AGENT_A', goal_id: 'example-goal', observed_digest: null, ttl_seconds: 60 }, new Date('2030-01-01T00:31:00.000Z'));
+  expectCode(() => expireLease(destination, { resource_id: 'example-expiry', observed_digest: acquired.digest }, new Date('2030-01-01T00:31:30.000Z')), 'lease_not_expired');
+  const expired = expireLease(destination, { resource_id: 'example-expiry', observed_digest: acquired.digest }, new Date('2030-01-01T00:32:00.000Z'));
+  assert.equal(expired.status, 'EXPIRED');
+  assert.equal(expired.lease.state, 'expired');
 });
 
 test('35 adverse: force-push behavior is absent from executable tooling', () => {

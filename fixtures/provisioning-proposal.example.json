@@ -1,6 +1,6 @@
 {
   "$schema": "./schemas/provisioning-proposal.schema.json",
-  "proposal_id": "proposal-d9be12a287a0c3a31029b2fe",
+  "proposal_id": "proposal-ed34c028edddf21e8e9ab814",
   "schema_version": "1.0.0",
   "profile": {"id": "persistent-multi-agent-github", "version": "1.0.0"},
   "genesis": {"state": "verified", "environment_id": "example-lab", "anchor": "fictional-genesis-anchor-0001"},
@@ -12,12 +12,11 @@
     {"name": "example-owner/nx-agent-ops", "function_id": "nx-agent-ops", "visibility": "private", "data_classes": ["internal-messages", "acknowledgements", "goals", "leases", "events", "usage-summaries", "branch-ownership", "reader-state"], "action": "create"},
     {"name": "example-owner/nx-communications", "function_id": "nx-communications", "visibility": "public", "data_classes": ["sanitized-protocol", "genesis", "interoperability", "outbound-channel-contract"], "action": "create"}
   ],
+  "agent_request": null,
   "requested_permissions": [
-    {"scope": "example-owner/nx-agent-control", "level": "administration", "reason": "Create the exact approved repository and configure its initial settings."},
-    {"scope": "example-owner/nx-agent-control", "level": "contents-write", "reason": "Publish only governed profile records after enrollment and branch/lease checks."},
-    {"scope": "example-owner/nx-agent-ops", "level": "administration", "reason": "Create the exact approved repository and configure its initial settings."},
-    {"scope": "example-owner/nx-agent-ops", "level": "contents-write", "reason": "Publish only governed profile records after enrollment and branch/lease checks."},
-    {"scope": "example-owner/nx-communications", "level": "administration", "reason": "Create the exact approved repository and configure its initial settings."}
+    {"scope": "example-owner/nx-agent-control", "level": "administration", "reason": "Create only the exact approved repository and configure its initial settings; reduce access after provisioning."},
+    {"scope": "example-owner/nx-agent-ops", "level": "administration", "reason": "Create only the exact approved repository and configure its initial settings; reduce access after provisioning."},
+    {"scope": "example-owner/nx-communications", "level": "administration", "reason": "Create only the exact approved repository and configure its initial settings; reduce access after provisioning."}
   ],
   "credential_mechanism": "Selected-repository GitHub App or normal OAuth/device authentication with credentials stored only in the provider secret boundary; never prompts, source, logs, exports, browser storage, or model memory.",
   "external_effects": ["None. This is a dry-run proposal and performs no provider mutation."],

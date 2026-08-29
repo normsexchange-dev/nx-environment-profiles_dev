@@ -38,11 +38,11 @@ Legacy Codex names remain valid through explicit compatibility mapping: `ai-agen
 ```text
 node scripts/plan-provisioning.mjs --request fixtures/provisioning-request.example.json --output <proposal.json>
 node scripts/materialize-profile.mjs --proposal <proposal.json> --output <empty-directory>
-node scripts/enroll-agent.mjs --root <materialized-directory> --request fixtures/enrollment-request.example.json
+node scripts/enroll-agent.mjs --root <materialized-directory> --request fixtures/enrollment-request-agent-a.json
 node scripts/validate-profile.mjs --branch main
 node --test tests/*.test.mjs
 ```
 
 The planner is dry-run by default. `--apply` marks an explicitly authorized proposal for a separate provider implementation; this repository never calls GitHub, creates repositories, installs credentials, or activates an agent.
 
-All fixtures are fictional. Public artifacts contain no live identities, messages, usage, private topology, credentials, customer data, business records, or raw conversations.
+All fixtures are fictional. Public artifacts contain no live destination-agent identity, operational record, credential, customer or business data, or raw conversation. The only real repository identities and release anchors are the publisher and compatibility references explicitly required by this standard.

@@ -1,6 +1,6 @@
 # Security, credentials, visibility, and privacy
 
-The public profile repository contains schemas, neutral procedures, deterministic tools, fictional fixtures, and public documentation only. It contains no live agent identity, enrollment, internal message, acknowledgement, goal, lease, event, usage record, private repository content, private topology, application data, customer data, sourcing data, credential, raw prompt, response, reasoning, or transcript.
+The public profile repository contains schemas, neutral procedures, deterministic tools, fictional fixtures, and public documentation only. It contains no live destination-agent identity, enrollment, internal message, acknowledgement, goal, lease, event, usage record, private repository content, application data, customer data, sourcing data, credential, raw prompt, response, reasoning, or transcript. Real repository identities appear only as the publisher, explicit legacy compatibility mappings, and exact release anchors required for deterministic rollback; those references disclose no repository content or operational record.
 
 Control and operations functions should be private by default. Communications standards may be public only when sanitized. Pairwise outbound channels use the publisher-selected visibility and contain only separately authorized messages. Application databases are mission state, not authoritative operations unless an explicit owner-reviewed adapter preserves the operations contract.
 

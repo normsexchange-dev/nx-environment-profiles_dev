@@ -171,13 +171,17 @@ function buildProvisioningProposal(request, apply = false) {
   const existing = request.existing_repositories || {};
   if (request.mode !== 'enroll-existing') assert(Object.keys(existing).length === 0, 'existing_environment_requires_enroll_existing');
   if (request.mode === 'enroll-existing') {
-    assert(Object.keys(existing).length >= 1, 'existing_environment_discovery_required');
+    const requiredExisting = requiredFunctions('persistent-multi-agent');
+    assert(requiredExisting.every((functionId) => typeof existing[functionId] === 'string'), 'existing_environment_discovery_incomplete');
     assert(request.agent_request && request.agent_request.agent_id, 'enrollment_request_required');
   }
   const repositories = [];
   for (const functionId of requiredFunctions(request.mode)) {
     const definition = REPOSITORY_FUNCTIONS[functionId];
     const existingName = existing[functionId];
+    if (request.mode === 'enroll-existing') {
+      assert(existingName.startsWith(`${request.environment_owner}/`) && /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(existingName), 'existing_repository_identity_invalid', { functionId });
+    }
     const requestedName = request.repository_names?.[functionId] || definition.defaultName;
     const name = existingName || normalizeRepositoryName(request.environment_owner, requestedName);
     repositories.push({
@@ -188,13 +192,6 @@ function buildProvisioningProposal(request, apply = false) {
       action: existingName ? 'connect-existing' : 'create'
     });
   }
-  if (request.mode === 'enroll-existing') {
-    for (const [functionId, name] of Object.entries(existing)) {
-      if (repositories.some((item) => item.function_id === functionId)) continue;
-      assert(REPOSITORY_FUNCTIONS[functionId], 'repository_function_unknown', { functionId });
-      repositories.push({ name, function_id: functionId, visibility: request.visibility?.[functionId] || REPOSITORY_FUNCTIONS[functionId].visibility, data_classes: REPOSITORY_FUNCTIONS[functionId].dataClasses, action: 'connect-existing' });
-    }
-  }
   if (request.external_recipient) {
     assert(request.mode === 'persistent-multi-agent', 'external_channel_requires_multi_agent_mode');
     assert(request.external_channel_authority_ref, 'external_channel_authority_required');
@@ -203,8 +200,13 @@ function buildProvisioningProposal(request, apply = false) {
   }
   const requestedPermissions = [];
   for (const repository of repositories) {
-    requestedPermissions.push({ scope: repository.name, level: repository.action === 'create' ? 'administration' : 'contents-read', reason: repository.action === 'create' ? 'Create the exact approved repository and configure its initial settings.' : 'Discover and verify the existing environment.' });
-    if (repository.function_id !== 'nx-communications' || repository.action === 'connect-existing') requestedPermissions.push({ scope: repository.name, level: 'contents-write', reason: 'Publish only governed profile records after enrollment and branch/lease checks.' });
+    if (repository.action === 'create') {
+      requestedPermissions.push({ scope: repository.name, level: 'administration', reason: 'Create only the exact approved repository and configure its initial settings; reduce access after provisioning.' });
+    } else if (repository.function_id === 'nx-communications') {
+      requestedPermissions.push({ scope: repository.name, level: 'contents-read', reason: 'Discover and verify the sanitized interoperability contract without changing it.' });
+    } else {
+      requestedPermissions.push({ scope: repository.name, level: 'contents-write', reason: 'Enroll the authorized agent and publish governed records after branch and lease checks.' });
+    }
   }
   const proposalBase = {
     schema_version: '1.0.0',
@@ -214,6 +216,7 @@ function buildProvisioningProposal(request, apply = false) {
     environment_owner: request.environment_owner,
     environment_id: request.environment_id,
     repositories,
+    agent_request: request.mode === 'enroll-existing' ? request.agent_request : null,
     requested_permissions: requestedPermissions,
     credential_mechanism: request.credential_mechanism || 'Selected-repository GitHub App or normal OAuth/device authentication with credentials stored only in the provider secret boundary; never prompts, source, logs, exports, browser storage, or model memory.',
     external_effects: apply ? repositories.filter((item) => item.action === 'create').map((item) => `Provider may create ${item.name} only after independently rechecking this exact proposal and authority.`) : ['None. This is a dry-run proposal and performs no provider mutation.'],
@@ -326,6 +329,8 @@ function leaseFile(root, resourceId) {
 function acquireLease(root, request, now = new Date()) {
   assertSafeContent(request);
   assert(request.resource_id && request.owner_agent && request.goal_id, 'lease_request_incomplete');
+  const ttl = Number(request.ttl_seconds || 900);
+  assert(Number.isInteger(ttl) && ttl >= 1 && ttl <= 86400, 'lease_ttl_invalid');
   const filePath = leaseFile(root, request.resource_id);
   const exists = fs.existsSync(filePath);
   const currentText = exists ? fs.readFileSync(filePath, 'utf8') : null;
@@ -340,13 +345,14 @@ function acquireLease(root, request, now = new Date()) {
     schema_version: '1.0.0', resource_id: request.resource_id,
     lease_id: deterministicId('lease', { ...request, now: now.toISOString() }), owner_agent: request.owner_agent, goal_id: request.goal_id,
     generation: (current?.generation || 0) + 1, observed_digest: currentDigest,
-    acquired_at: now.toISOString(), expires_at: new Date(now.valueOf() + Number(request.ttl_seconds || 900) * 1000).toISOString(), state: 'active'
+    acquired_at: now.toISOString(), expires_at: new Date(now.valueOf() + ttl * 1000).toISOString(), state: 'active'
   };
   writeJson(filePath, lease);
   return { status: 'ACQUIRED', lease, digest: sha256(fs.readFileSync(filePath)) };
 }
 
 function releaseLease(root, request, now = new Date()) {
+  assertSafeContent(request);
   const filePath = leaseFile(root, request.resource_id);
   assert(fs.existsSync(filePath), 'lease_missing');
   const currentText = fs.readFileSync(filePath, 'utf8');
@@ -358,6 +364,40 @@ function releaseLease(root, request, now = new Date()) {
   lease.expires_at = now.toISOString();
   writeJson(filePath, lease);
   return { status: 'RELEASED', lease, digest: sha256(fs.readFileSync(filePath)) };
+}
+
+function renewLease(root, request, now = new Date()) {
+  assertSafeContent(request);
+  const filePath = leaseFile(root, request.resource_id);
+  assert(fs.existsSync(filePath), 'lease_missing');
+  const currentText = fs.readFileSync(filePath, 'utf8');
+  const currentDigest = sha256(currentText);
+  assert(currentDigest === request.observed_digest, 'lease_compare_and_swap_lost');
+  const lease = JSON.parse(currentText);
+  assert(lease.state === 'active' && Date.parse(lease.expires_at) > now.valueOf(), 'lease_not_renewable');
+  assert(lease.owner_agent === request.owner_agent && lease.lease_id === request.lease_id, 'lease_renewal_denied');
+  const ttl = Number(request.ttl_seconds || 900);
+  assert(Number.isInteger(ttl) && ttl >= 1 && ttl <= 86400, 'lease_ttl_invalid');
+  lease.generation += 1;
+  lease.observed_digest = currentDigest;
+  lease.expires_at = new Date(now.valueOf() + ttl * 1000).toISOString();
+  writeJson(filePath, lease);
+  return { status: 'RENEWED', lease, digest: sha256(fs.readFileSync(filePath)) };
+}
+
+function expireLease(root, request, now = new Date()) {
+  assertSafeContent(request);
+  const filePath = leaseFile(root, request.resource_id);
+  assert(fs.existsSync(filePath), 'lease_missing');
+  const currentText = fs.readFileSync(filePath, 'utf8');
+  const currentDigest = sha256(currentText);
+  assert(currentDigest === request.observed_digest, 'lease_compare_and_swap_lost');
+  const lease = JSON.parse(currentText);
+  assert(lease.state === 'active' && Date.parse(lease.expires_at) <= now.valueOf(), 'lease_not_expired');
+  lease.state = 'expired';
+  lease.observed_digest = currentDigest;
+  writeJson(filePath, lease);
+  return { status: 'EXPIRED', lease, digest: sha256(fs.readFileSync(filePath)) };
 }
 
 function updateReaderState(root, request) {
@@ -404,6 +444,6 @@ function acknowledgeInternalMessage(root, acknowledgement) {
 
 export {
   CREDENTIAL_PATTERNS, ProfileError, REPOSITORY_FUNCTIONS, acquireLease, assert, assertEmptyDestination, assertSafeContent, assertSchema,
-  acknowledgeInternalMessage, assertChannelWrite, buildProvisioningProposal, deterministicId, enrollAgent, materializeProfile, parseArgs, prettyJson, proposeExternalMessage, publishImmutable,
-  readJson, releaseLease, sha256, stableStringify, updateReaderState, validateCapabilityDeclaration, validateSchema, writeJson
+  acknowledgeInternalMessage, assertChannelWrite, buildProvisioningProposal, deterministicId, enrollAgent, expireLease, materializeProfile, parseArgs, prettyJson, proposeExternalMessage, publishImmutable,
+  readJson, releaseLease, renewLease, sha256, stableStringify, updateReaderState, validateCapabilityDeclaration, validateSchema, writeJson
 };
