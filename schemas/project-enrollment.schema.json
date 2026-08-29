@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/project-enrollment.schema.json",
+  "type": "object", "additionalProperties": false, "required": ["schema_version", "enrollment_id", "agent_id", "project_id", "role_id", "repository", "integration_branch", "status", "authority_reference"],
+  "properties": {"schema_version": {"const": "1.0.0"}, "enrollment_id": {"type": "string", "minLength": 12}, "agent_id": {"type": "string", "minLength": 1}, "project_id": {"type": "string", "minLength": 1}, "role_id": {"type": "string", "minLength": 1}, "repository": {"type": "string", "minLength": 1}, "integration_branch": {"type": "string", "minLength": 1}, "status": {"enum": ["proposed", "active", "suspended", "retired"]}, "authority_reference": {"type": "string", "minLength": 1}}
+}

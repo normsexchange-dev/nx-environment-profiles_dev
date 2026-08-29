@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/runtime-adapter.schema.json",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "adapter_id", "runtime_family", "instruction_loading", "filesystem", "git", "secure_github", "persistent_storage", "background_scheduling", "cross_prompt_activation", "subagents", "inbox_events", "secret_storage", "deployment_boundary"],
+  "properties": {
+    "$schema": {"type": "string"}, "schema_version": {"const": "1.0.0"}, "adapter_id": {"type": "string", "minLength": 1}, "runtime_family": {"type": "string", "minLength": 1},
+    "instruction_loading": {"$ref": "#/$defs/capability"}, "filesystem": {"$ref": "#/$defs/capability"}, "git": {"$ref": "#/$defs/capability"}, "secure_github": {"$ref": "#/$defs/capability"}, "persistent_storage": {"$ref": "#/$defs/capability"}, "background_scheduling": {"$ref": "#/$defs/capability"}, "cross_prompt_activation": {"$ref": "#/$defs/capability"}, "subagents": {"$ref": "#/$defs/capability"}, "inbox_events": {"$ref": "#/$defs/capability"}, "secret_storage": {"$ref": "#/$defs/capability"}, "deployment_boundary": {"$ref": "#/$defs/capability"}
+  },
+  "$defs": {"capability": {"type": "object", "additionalProperties": false, "required": ["status", "mechanism", "evidence"], "properties": {"status": {"enum": ["GO", "DEGRADED", "NO-GO", "UNKNOWN", "CONDITIONAL"]}, "mechanism": {"type": "string", "minLength": 1}, "evidence": {"type": "string", "minLength": 1}}}}
+}

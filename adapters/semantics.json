@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "semantic_contract": [
+    "discover-instructions",
+    "report-capabilities-with-evidence",
+    "read-or-write-only-with-declared-authority",
+    "preserve-distinct-agent-identity",
+    "use-compare-and-swap-leases",
+    "keep-private-operations-private",
+    "keep-external-outbound-publisher-owned",
+    "stop-before-unauthorized-external-action"
+  ]
+}

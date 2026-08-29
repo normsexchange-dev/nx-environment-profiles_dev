@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/capability-declaration.schema.json",
+  "type": "object", "additionalProperties": false, "required": ["schema_version", "agent_id", "capabilities", "checked_at"],
+  "properties": {"schema_version": {"const": "1.0.0"}, "agent_id": {"type": "string", "minLength": 1}, "capabilities": {"type": "object", "additionalProperties": {"type": "object", "additionalProperties": false, "required": ["state", "authority", "evidence"], "properties": {"state": {"enum": ["GO", "DEGRADED", "NO-GO", "UNKNOWN", "CONDITIONAL"]}, "authority": {"enum": ["internally-available", "declared", "technically-granted", "standing-human-authorized", "temporarily-human-authorized", "observed", "revoked"]}, "evidence": {"type": "string", "minLength": 1}}}}, "checked_at": {"type": "string", "minLength": 1}}
+}

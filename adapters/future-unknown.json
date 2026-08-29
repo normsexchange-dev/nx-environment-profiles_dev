@@ -1,0 +1,17 @@
+{
+  "$schema": "../schemas/runtime-adapter.schema.json",
+  "schema_version": "1.0.0",
+  "adapter_id": "future-unknown",
+  "runtime_family": "future-or-unknown",
+  "instruction_loading": {"status": "UNKNOWN", "mechanism": "Must be declared and verified.", "evidence": "none"},
+  "filesystem": {"status": "UNKNOWN", "mechanism": "Must be probed.", "evidence": "none"},
+  "git": {"status": "UNKNOWN", "mechanism": "Must be probed.", "evidence": "none"},
+  "secure_github": {"status": "UNKNOWN", "mechanism": "Must be independently established.", "evidence": "none"},
+  "persistent_storage": {"status": "UNKNOWN", "mechanism": "Must be independently established.", "evidence": "none"},
+  "background_scheduling": {"status": "UNKNOWN", "mechanism": "Must be independently established.", "evidence": "none"},
+  "cross_prompt_activation": {"status": "UNKNOWN", "mechanism": "Must be independently established.", "evidence": "none"},
+  "subagents": {"status": "UNKNOWN", "mechanism": "Must be independently established.", "evidence": "none"},
+  "inbox_events": {"status": "UNKNOWN", "mechanism": "Must be independently established.", "evidence": "none"},
+  "secret_storage": {"status": "UNKNOWN", "mechanism": "Must be independently established.", "evidence": "none"},
+  "deployment_boundary": {"status": "NO-GO", "mechanism": "Profile adoption does not deploy services.", "evidence": "profile-policy"}
+}

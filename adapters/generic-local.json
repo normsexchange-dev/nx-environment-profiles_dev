@@ -1,0 +1,17 @@
+{
+  "$schema": "../schemas/runtime-adapter.schema.json",
+  "schema_version": "1.0.0",
+  "adapter_id": "generic-local",
+  "runtime_family": "generic-local-model",
+  "instruction_loading": {"status": "CONDITIONAL", "mechanism": "Owner-defined adapter loads the canonical project map.", "evidence": "adapter-implementation-required"},
+  "filesystem": {"status": "CONDITIONAL", "mechanism": "Host sandbox and owner policy.", "evidence": "runtime-preflight-required"},
+  "git": {"status": "CONDITIONAL", "mechanism": "Local Git installation and policy.", "evidence": "runtime-preflight-required"},
+  "secure_github": {"status": "CONDITIONAL", "mechanism": "OAuth, device flow, GitHub App, or environment credential outside prompts.", "evidence": "runtime-preflight-required"},
+  "persistent_storage": {"status": "CONDITIONAL", "mechanism": "Git repositories and approved local store.", "evidence": "profile-backend"},
+  "background_scheduling": {"status": "CONDITIONAL", "mechanism": "Owner-managed scheduler.", "evidence": "deployment-specific"},
+  "cross_prompt_activation": {"status": "CONDITIONAL", "mechanism": "Owner-managed scheduler/event source.", "evidence": "deployment-specific"},
+  "subagents": {"status": "UNKNOWN", "mechanism": "Runtime evidence required.", "evidence": "not-live-verified"},
+  "inbox_events": {"status": "CONDITIONAL", "mechanism": "Explicit polling or owner-managed events.", "evidence": "deployment-specific"},
+  "secret_storage": {"status": "CONDITIONAL", "mechanism": "OS or deployment secret store.", "evidence": "deployment-specific"},
+  "deployment_boundary": {"status": "NO-GO", "mechanism": "Profile adoption does not deploy services.", "evidence": "profile-policy"}
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "../../schemas/repository-functions.schema.json",
+  "schema_version": "1.0.0",
+  "functions": [
+    {
+      "function_id": "nx-agent-control",
+      "default_name": "nx-agent-control",
+      "required_modes": ["persistent-single-agent", "persistent-multi-agent", "enroll-existing"],
+      "recommended_visibility": "private",
+      "writer": "environment-owner",
+      "data_classes": ["policy", "registries", "projects", "enrollments", "capability-declarations", "adoption-records"]
+    },
+    {
+      "function_id": "nx-agent-ops",
+      "default_name": "nx-agent-ops",
+      "required_modes": ["persistent-multi-agent", "enroll-existing"],
+      "recommended_visibility": "private",
+      "writer": "enrolled-agents-under-policy",
+      "data_classes": ["internal-messages", "acknowledgements", "goals", "leases", "events", "usage-summaries", "branch-ownership", "reader-state"]
+    },
+    {
+      "function_id": "nx-communications",
+      "default_name": "nx-communications",
+      "required_modes": [],
+      "recommended_visibility": "public",
+      "writer": "environment-owner",
+      "data_classes": ["sanitized-protocol", "genesis", "interoperability", "outbound-channel-contract"]
+    },
+    {
+      "function_id": "nx-to-recipient",
+      "default_name": "nx-to-<recipient>",
+      "required_modes": [],
+      "recommended_visibility": "private",
+      "writer": "publisher-owner-only",
+      "data_classes": ["authorized-outbound-messages", "append-only-index"]
+    }
+  ],
+  "legacy_mappings": [
+    {"legacy_name": "ai-agent-control", "function_id": "nx-agent-control", "migration": "none-required"},
+    {"legacy_name": "ai-agent-ops", "function_id": "nx-agent-ops", "migration": "none-required"},
+    {"legacy_name": "nx-codex-communications_dev", "function_id": "nx-communications", "migration": "none-required"}
+  ]
+}

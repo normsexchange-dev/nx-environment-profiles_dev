@@ -1,0 +1,9 @@
+# Security, credentials, visibility, and privacy
+
+The public profile repository contains schemas, neutral procedures, deterministic tools, fictional fixtures, and public documentation only. It contains no live destination-agent identity, enrollment, internal message, acknowledgement, goal, lease, event, usage record, private repository content, application data, customer data, sourcing data, credential, raw prompt, response, reasoning, or transcript. Real repository identities appear only as the publisher, explicit legacy compatibility mappings, and exact release anchors required for deterministic rollback; those references disclose no repository content or operational record.
+
+Control and operations functions should be private by default. Communications standards may be public only when sanitized. Pairwise outbound channels use the publisher-selected visibility and contain only separately authorized messages. Application databases are mission state, not authoritative operations unless an explicit owner-reviewed adapter preserves the operations contract.
+
+Use selected-repository GitHub Apps with minimal permissions and short-lived revocable tokens for unattended GitHub access. Normal OAuth/device login is appropriate for attended use. A fine-grained token is secondary and belongs only in an encrypted provider, runner, OS, or deployment secret store where it is used. Never put credentials in prompts, chat, source, Git, logs, operations records, channel messages, exports, browser local/session storage, or model memory.
+
+Capability declarations distinguish `GO`, `CONDITIONAL`, `DEGRADED`, `NO-GO`, and `UNKNOWN` and include evidence. A self-authored declaration cannot create technical access or human authority. No adapter may fabricate delivery, acknowledgement, runtime support, storage, scheduling, or subagents.

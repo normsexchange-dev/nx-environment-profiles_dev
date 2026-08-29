@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/repository-functions.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "functions", "legacy_mappings"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "1.0.0"},
+    "functions": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["function_id", "default_name", "required_modes", "recommended_visibility", "writer", "data_classes"],
+        "properties": {
+          "function_id": {"enum": ["nx-agent-control", "nx-agent-ops", "nx-communications", "nx-to-recipient"]},
+          "default_name": {"type": "string", "minLength": 1},
+          "required_modes": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "recommended_visibility": {"enum": ["public", "private"]},
+          "writer": {"type": "string", "minLength": 1},
+          "data_classes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "legacy_mappings": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["legacy_name", "function_id", "migration"],
+        "properties": {
+          "legacy_name": {"type": "string", "minLength": 1},
+          "function_id": {"type": "string", "minLength": 1},
+          "migration": {"const": "none-required"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "../schemas/profile-registry.schema.json",
+  "schema_version": "1.0.0",
+  "profiles": [
+    {
+      "profile_id": "persistent-multi-agent-github",
+      "version": "1.0.0",
+      "lifecycle_state": "stable",
+      "repository": "normsexchange-dev/nx-environment-profiles_dev",
+      "manifest": "profiles/persistent-multi-agent-github/profile.json",
+      "annotated_tag": "environment-profiles-v1.0.0",
+      "backend": "github",
+      "supersedes": null
+    }
+  ]
+}

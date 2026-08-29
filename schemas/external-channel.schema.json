@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/external-channel.schema.json",
+  "type": "object", "additionalProperties": false, "required": ["schema_version", "channel_id", "publisher_owner", "publisher_repository", "recipient_owner", "protocol_version", "single_writer", "reader_state_location", "message_authority_required", "status"],
+  "properties": {"schema_version": {"const": "1.0.0"}, "channel_id": {"type": "string", "minLength": 1}, "publisher_owner": {"type": "string", "minLength": 1}, "publisher_repository": {"type": "string", "minLength": 1}, "recipient_owner": {"type": "string", "minLength": 1}, "protocol_version": {"type": "string", "minLength": 1}, "single_writer": {"const": true}, "reader_state_location": {"const": "recipient-owned"}, "message_authority_required": {"const": true}, "status": {"enum": ["proposed", "active", "suspended", "revoked"]}}
+}

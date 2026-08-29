@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/goal.schema.json",
+  "type": "object", "additionalProperties": false, "required": ["schema_version", "goal_id", "owner", "objective", "scope", "external_authority", "status", "created_at", "immutable"],
+  "properties": {"schema_version": {"const": "1.0.0"}, "goal_id": {"type": "string", "minLength": 8}, "owner": {"type": "string", "minLength": 1}, "objective": {"type": "string", "minLength": 1}, "scope": {"type": "array", "items": {"type": "string"}}, "external_authority": {"type": "array", "items": {"type": "string"}}, "status": {"enum": ["proposed", "active", "complete", "blocked", "cancelled"]}, "created_at": {"type": "string", "minLength": 1}, "immutable": {"const": true}}
+}

@@ -1,0 +1,13 @@
+{
+  "name": "nx-environment-profiles",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Vendor-neutral operating profiles for persistent sovereign agent environments",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-profile.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm run validate && npm test"
+  },
+  "engines": {"node": ">=20"}
+}

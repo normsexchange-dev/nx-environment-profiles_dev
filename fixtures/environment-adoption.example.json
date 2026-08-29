@@ -1,0 +1,14 @@
+{
+  "$schema": "./schemas/environment-adoption.schema.json",
+  "schema_version": "1.0.0",
+  "adoption_id": "adoption-example-0001",
+  "environment_id": "example-lab",
+  "profile_id": "persistent-multi-agent-github",
+  "profile_version": "1.0.0",
+  "decision": "adopt",
+  "proposal_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "owner_authority_reference": "fictional-owner-approval-0001",
+  "adopted_repositories": ["example-owner/nx-agent-control", "example-owner/nx-agent-ops", "example-owner/nx-communications"],
+  "existing_state_preserved": true,
+  "decided_at": "2030-01-01T00:05:00.000Z"
+}

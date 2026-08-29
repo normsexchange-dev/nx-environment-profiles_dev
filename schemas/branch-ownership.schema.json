@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/branch-ownership.schema.json",
+  "type": "object", "additionalProperties": false, "required": ["schema_version", "record_id", "repository", "branch", "integration_branch", "owner_agent", "goal_id", "state", "created_at", "immutable"],
+  "properties": {"schema_version": {"const": "1.0.0"}, "record_id": {"type": "string", "minLength": 12}, "repository": {"type": "string", "minLength": 1}, "branch": {"type": "string", "minLength": 1}, "integration_branch": {"type": "string", "minLength": 1}, "owner_agent": {"type": "string", "minLength": 1}, "goal_id": {"type": "string", "minLength": 1}, "state": {"enum": ["active", "merged", "abandoned"]}, "created_at": {"type": "string", "minLength": 1}, "immutable": {"const": true}}
+}

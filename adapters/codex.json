@@ -1,0 +1,17 @@
+{
+  "$schema": "../schemas/runtime-adapter.schema.json",
+  "schema_version": "1.0.0",
+  "adapter_id": "codex",
+  "runtime_family": "openai-codex",
+  "instruction_loading": {"status": "GO", "mechanism": "Repository AGENTS.md hierarchy; local product/system constraints remain higher priority.", "evidence": "official-runtime-documentation"},
+  "filesystem": {"status": "CONDITIONAL", "mechanism": "Runtime sandbox and user approvals.", "evidence": "runtime-preflight-required"},
+  "git": {"status": "CONDITIONAL", "mechanism": "Local Git subject to sandbox and repository policy.", "evidence": "runtime-preflight-required"},
+  "secure_github": {"status": "CONDITIONAL", "mechanism": "Connected GitHub app, OAuth, or environment-managed credential; never prompt storage.", "evidence": "runtime-preflight-required"},
+  "persistent_storage": {"status": "CONDITIONAL", "mechanism": "Git repositories and approved machine-local state.", "evidence": "profile-backend"},
+  "background_scheduling": {"status": "CONDITIONAL", "mechanism": "External automation or deterministic OS scheduler; a chat session is not continuous.", "evidence": "runtime-preflight-required"},
+  "cross_prompt_activation": {"status": "CONDITIONAL", "mechanism": "External scheduler, automation, or new user task.", "evidence": "runtime-preflight-required"},
+  "subagents": {"status": "CONDITIONAL", "mechanism": "Runtime-dependent collaboration capability.", "evidence": "runtime-preflight-required"},
+  "inbox_events": {"status": "CONDITIONAL", "mechanism": "Explicit task-boundary polling or external event source.", "evidence": "profile-backend"},
+  "secret_storage": {"status": "CONDITIONAL", "mechanism": "Provider/OS secret store outside source and prompts.", "evidence": "deployment-specific"},
+  "deployment_boundary": {"status": "NO-GO", "mechanism": "Profile adoption does not deploy services.", "evidence": "profile-policy"}
+}

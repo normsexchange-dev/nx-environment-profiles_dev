@@ -1,0 +1,9 @@
+{
+  "agent_id": "EXAMPLE_AGENT_B",
+  "runtime_adapter": "gemini-cli",
+  "authority_ref": "fictional-owner-enrollment-b",
+  "created_at": "2030-01-01T00:11:00.000Z",
+  "enrollments": [
+    {"schema_version": "1.0.0", "enrollment_id": "enrollment-agent-b-ops", "agent_id": "EXAMPLE_AGENT_B", "project_id": "example-ops", "role_id": "coordinator", "repository": "example-owner/nx-agent-ops", "integration_branch": "main", "status": "active", "authority_reference": "fictional-owner-enrollment-b"}
+  ]
+}

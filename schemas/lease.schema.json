@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/lease.schema.json",
+  "type": "object", "additionalProperties": false, "required": ["schema_version", "resource_id", "lease_id", "owner_agent", "goal_id", "generation", "observed_digest", "acquired_at", "expires_at", "state"],
+  "properties": {"schema_version": {"const": "1.0.0"}, "resource_id": {"type": "string", "minLength": 1}, "lease_id": {"type": "string", "minLength": 12}, "owner_agent": {"type": "string", "minLength": 1}, "goal_id": {"type": "string", "minLength": 1}, "generation": {"type": "integer", "minimum": 1}, "observed_digest": {"type": ["string", "null"]}, "acquired_at": {"type": "string", "minLength": 1}, "expires_at": {"type": "string", "minLength": 1}, "state": {"enum": ["active", "released", "expired"]}}
+}

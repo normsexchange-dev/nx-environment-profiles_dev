@@ -1,0 +1,49 @@
+{
+  "$schema": "../../schemas/profile.schema.json",
+  "schema_version": "1.0.0",
+  "profile_id": "persistent-multi-agent-github",
+  "profile_version": "1.0.0",
+  "lifecycle_state": "stable",
+  "publisher": {
+    "owner": "normsexchange-dev",
+    "repository": "normsexchange-dev/nx-environment-profiles_dev",
+    "release_tag": "environment-profiles-v1.0.0",
+    "tag_object": "resolve-from-annotated-tag",
+    "tag_target": "resolve-from-annotated-tag"
+  },
+  "backend_contract": "github-v1",
+  "backend_neutral": true,
+  "recommended_for_norms_long_running": true,
+  "environment_modes": [
+    "session-only",
+    "persistent-single-agent",
+    "persistent-multi-agent",
+    "enroll-existing"
+  ],
+  "repository_functions": "repository-functions.json",
+  "runtime_adapters": [
+    "codex",
+    "gemini-cli",
+    "google-ai-studio",
+    "claude-code",
+    "github-copilot",
+    "generic-local",
+    "future-unknown"
+  ],
+  "provision_once_enroll_repeatedly": true,
+  "private_operations_required": true,
+  "external_channels_separate": true,
+  "authority_rules": [
+    "Profile adoption grants no repository or external authority.",
+    "Repository creation requires an exact owner-approved provisioning proposal.",
+    "Every agent has a distinct truthful identity and one or more explicit project enrollments.",
+    "Family adoption never grants infrastructure, credential, mission, or external-action authority.",
+    "Protected external mutation requires current goal authority and a valid lease when applicable."
+  ],
+  "release": {
+    "semver": "1.0.0",
+    "annotated_tag_required": true,
+    "immutable": true,
+    "rollback_catalog": "../../release/rollback-anchors.json"
+  }
+}

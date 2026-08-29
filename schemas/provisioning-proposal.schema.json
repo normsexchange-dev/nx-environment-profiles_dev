@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.0.0/schemas/provisioning-proposal.schema.json",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "proposal_id", "profile", "genesis", "mode", "environment_owner", "environment_id", "repositories", "agent_request", "requested_permissions", "credential_mechanism", "external_effects", "manual_alternative", "unavailable_without_access", "dry_run", "apply_authority", "created_at"],
+  "properties": {
+    "$schema": {"type": "string"}, "schema_version": {"const": "1.0.0"}, "proposal_id": {"type": "string", "minLength": 12},
+    "profile": {"type": "object", "additionalProperties": false, "required": ["id", "version"], "properties": {"id": {"const": "persistent-multi-agent-github"}, "version": {"const": "1.0.0"}}},
+    "genesis": {"type": "object", "additionalProperties": false, "required": ["state", "environment_id", "anchor"], "properties": {"state": {"const": "verified"}, "environment_id": {"type": "string", "minLength": 1}, "anchor": {"type": "string", "minLength": 1}}},
+    "mode": {"enum": ["session-only", "persistent-single-agent", "persistent-multi-agent", "enroll-existing"]},
+    "environment_owner": {"type": "string", "minLength": 1}, "environment_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "repositories": {"type": "array", "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["name", "function_id", "visibility", "data_classes", "action"], "properties": {"name": {"type": "string", "minLength": 1}, "function_id": {"type": "string", "minLength": 1}, "visibility": {"enum": ["public", "private"]}, "data_classes": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}, "action": {"enum": ["create", "connect-existing", "none"]}}}},
+    "agent_request": {"type": ["object", "null"]},
+    "requested_permissions": {"type": "array", "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["scope", "level", "reason"], "properties": {"scope": {"type": "string", "minLength": 1}, "level": {"enum": ["metadata-read", "contents-read", "contents-write", "administration"]}, "reason": {"type": "string", "minLength": 1}}}},
+    "credential_mechanism": {"type": "string", "minLength": 1}, "external_effects": {"type": "array", "items": {"type": "string"}}, "manual_alternative": {"type": "string", "minLength": 1}, "unavailable_without_access": {"type": "array", "items": {"type": "string"}},
+    "dry_run": {"type": "boolean"}, "apply_authority": {"type": ["string", "null"]}, "created_at": {"type": "string", "minLength": 1}
+  }
+}
