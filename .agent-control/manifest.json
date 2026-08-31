@@ -4,78 +4,78 @@
   "repository": "normsexchange-dev/nx-environment-profiles_dev",
   "integration_branch": "main",
   "operations_repository": "normsexchange-dev/ai-agent-ops",
-  "installed_standard_version": "2026.08.30.1",
-  "required_standard_version": "2026.08.30.1",
+  "installed_standard_version": "2026.08.31.1",
+  "required_standard_version": "2026.08.31.1",
   "source_repository": "normsexchange-dev/ai-agent-control",
-  "source_commit": "36f06f19a351405f910258eddeda582391aa93be",
-  "configuration_hash": "115f55ec97148f1f7e6b750a280ef7f4d48a2e64a09a04adaac00536f5838c78",
+  "source_commit": "99d5893a6a2afcd5611cd1609f1fda1539e509e2",
+  "configuration_hash": "087176b88d1be9e4ac7b9e17b20ae4c649b7664b2849aad26c6631c25f1c2ff7",
   "adapter_versions": {
-    "codex": "2.0.0",
+    "codex": "3.0.0",
     "gemini": "2.0.0",
     "claude": "1.0.0",
     "copilot": "1.0.0"
   },
-  "always_loaded_bytes": 8952,
+  "always_loaded_bytes": 8934,
   "managed_files": [
     {
       "path": "AGENTS.md",
       "strategy": "file",
-      "sha256": "69270076a5b2d75c09d12afc8716e0af6a773a75902ad0d4b7e863490dc8940f"
+      "sha256": "f1dba79601ecbfbe8f59206372ab9df031c825d434c58efde38ccc5127f5e613"
     },
     {
       "path": "CLAUDE.md",
       "strategy": "file",
-      "sha256": "7f61c1f38f76619b94a3e0aca5f5d0f85740edd929aa0f103466399e02198d04"
+      "sha256": "f4c753dfd9c015e1e4103b41eeb5dbfe972583f2b0e517be9c3b4a04c1bd0fc2"
     },
     {
       "path": ".github/copilot-instructions.md",
       "strategy": "file",
-      "sha256": "fe2c2f7f9d3476ff4283ed002de391e0a8a0c4092fcd8edfc9817a2359484f71"
+      "sha256": "bc7ee9f6141a12be5208e189590d57528c73b09acdb4a5c6119b9d75913c94e8"
     },
     {
       "path": ".agent-control/verify-agent-config.ps1",
       "strategy": "file",
-      "sha256": "c8d786f4c93354b2b06daf5d98fc5e1928cbd73a9b08da1169fe1b4b81763a60"
+      "sha256": "29ffbaa70062c4f52a558866a4ceeb61bb9a29999c3f7609c20a325b04cc21fd"
     },
     {
       "path": ".agent-control/hooks/codex-usage-capture.ps1",
       "strategy": "file",
-      "sha256": "e7260252ee940f47df45a6bdc3cffb294a159664d89d90dba971eda21fcd3014"
+      "sha256": "eb0f47a70c099820ec89a4f1e9542dccb3da879f1205731f7bc6ca377073ec32"
     },
     {
       "path": ".codex/hooks.json",
       "strategy": "file",
-      "sha256": "9bf29a25d9539250cc200d38a548fe2ef01df7b1632152c8dcfbc3d62b6e50ab"
+      "sha256": "0a1b48e58bfbccee304132110728cc640651ac8e08127fba09926dd447fcfe99"
     },
     {
       "path": ".agent-control/roles/coordinator.md",
       "strategy": "file",
-      "sha256": "67763cff40829163cfc8b35d314d630f70b3123beca87f9643cdd51ded7c31ad"
+      "sha256": "40a9927d6e24f9ff1870cd39db645ca722be886f557cde411d9729c5ddc3eae3"
     },
     {
       "path": ".gemini/agents/coordinator.md",
       "strategy": "file",
-      "sha256": "6a811532fe1594626c4b7e7388be39a3a04b83a41175eac2c52967bfa48f3184"
+      "sha256": "e916bc319b00c3f05f09e233b7b59d5bb269f4783002211e27f05b865d39812b"
     },
     {
       "path": ".agent-control/roles/research.md",
       "strategy": "file",
-      "sha256": "64de959b68c7a87120068d8267abf2964026b50955cc0477308f981af222ae86"
+      "sha256": "427595bfe78f4cfbf0f180683756f9dd3c3bba5801e6c35428fbace0b2649096"
     },
     {
       "path": ".gemini/agents/research.md",
       "strategy": "file",
-      "sha256": "e1681dea8fca6b068fd6a49900c7c03eee9b1f291ad69110de1e6ca6be8999ba"
+      "sha256": "56bb198709c11e11e6d95e277a5530959729893c7ecde5be9b1386dac6ae0024"
     },
     {
       "path": ".agent-control/roles/reviewer.md",
       "strategy": "file",
-      "sha256": "465d8cf2b8d24b4674c9032360db36c6e9a801257dac66687f511cc3b84cf776"
+      "sha256": "0f3d0783aa4edba2d97d3ba8b90ae827b616c9e194646b08fb881754c811ae1a"
     },
     {
       "path": ".gemini/agents/reviewer.md",
       "strategy": "file",
-      "sha256": "e5b85a851ce200c8b0bd8c6a31ff01769d5677fc1521ef0ab3ed24ca2258f6ee"
+      "sha256": "602c0fc5f5346acc4b417fcebb7270a5120182dc0e4802b1f4a2dc7ac05f1086"
     },
     {
       "path": ".gemini/settings.json",
