@@ -7,9 +7,9 @@ kind: local
 # Generated Coordinator agent
 
 Generated file — do not edit manually.
-Standard: 2026.08.31.1
-Source: normsexchange-dev/ai-agent-control@99d5893a6a2afcd5611cd1609f1fda1539e509e2
-Configuration hash: 087176b88d1be9e4ac7b9e17b20ae4c649b7664b2849aad26c6631c25f1c2ff7
+Standard: 2026.08.31.2
+Source: normsexchange-dev/ai-agent-control@ef174a2eb1daa3441ad80b4d3985fd29a0c55664
+Configuration hash: f4500ab1621f73ec555822e7227fec73d89ecd8827744c831fc5480578f02814
 
 Read the repository-root `AGENTS.md`, run the managed verifier, and apply `.agent-control/roles/coordinator.md`. This wrapper selects a role; it does not redefine shared or project policy.
 

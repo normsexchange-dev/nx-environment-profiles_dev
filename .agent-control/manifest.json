@@ -4,13 +4,13 @@
   "repository": "normsexchange-dev/nx-environment-profiles_dev",
   "integration_branch": "main",
   "operations_repository": "normsexchange-dev/ai-agent-ops",
-  "installed_standard_version": "2026.08.31.1",
-  "required_standard_version": "2026.08.31.1",
+  "installed_standard_version": "2026.08.31.2",
+  "required_standard_version": "2026.08.31.2",
   "source_repository": "normsexchange-dev/ai-agent-control",
-  "source_commit": "99d5893a6a2afcd5611cd1609f1fda1539e509e2",
-  "configuration_hash": "087176b88d1be9e4ac7b9e17b20ae4c649b7664b2849aad26c6631c25f1c2ff7",
+  "source_commit": "ef174a2eb1daa3441ad80b4d3985fd29a0c55664",
+  "configuration_hash": "f4500ab1621f73ec555822e7227fec73d89ecd8827744c831fc5480578f02814",
   "adapter_versions": {
-    "codex": "3.0.0",
+    "codex": "3.0.1",
     "gemini": "2.0.0",
     "claude": "1.0.0",
     "copilot": "1.0.0"
@@ -20,62 +20,62 @@
     {
       "path": "AGENTS.md",
       "strategy": "file",
-      "sha256": "f1dba79601ecbfbe8f59206372ab9df031c825d434c58efde38ccc5127f5e613"
+      "sha256": "4e088b30845b13cad8ceb3b9081213d45a1312b6182d781837fb77fb6fcc0ef6"
     },
     {
       "path": "CLAUDE.md",
       "strategy": "file",
-      "sha256": "f4c753dfd9c015e1e4103b41eeb5dbfe972583f2b0e517be9c3b4a04c1bd0fc2"
+      "sha256": "fd8a11dd76bacbec8061c0c300084722aee337a0b9084ea80b9026d3e9fc9d85"
     },
     {
       "path": ".github/copilot-instructions.md",
       "strategy": "file",
-      "sha256": "bc7ee9f6141a12be5208e189590d57528c73b09acdb4a5c6119b9d75913c94e8"
+      "sha256": "63a85fef27275e1e265c228deeb6a5bdd6a10c88ef063fa6c2431279cf25ae4d"
     },
     {
       "path": ".agent-control/verify-agent-config.ps1",
       "strategy": "file",
-      "sha256": "29ffbaa70062c4f52a558866a4ceeb61bb9a29999c3f7609c20a325b04cc21fd"
+      "sha256": "6436377efc0388b0f7847651d97060c8852cefeb81cf2915961b501b179acf81"
     },
     {
       "path": ".agent-control/hooks/codex-usage-capture.ps1",
       "strategy": "file",
-      "sha256": "eb0f47a70c099820ec89a4f1e9542dccb3da879f1205731f7bc6ca377073ec32"
+      "sha256": "4a474cc058c063c1b75daa46ac199c8fae04daa1e9d47676d23eed65ea00f4cf"
     },
     {
       "path": ".codex/hooks.json",
       "strategy": "file",
-      "sha256": "0a1b48e58bfbccee304132110728cc640651ac8e08127fba09926dd447fcfe99"
+      "sha256": "459949d17bfed0cedd37e251454efd7a684e83b298a31dc538c04d88bda95d0f"
     },
     {
       "path": ".agent-control/roles/coordinator.md",
       "strategy": "file",
-      "sha256": "40a9927d6e24f9ff1870cd39db645ca722be886f557cde411d9729c5ddc3eae3"
+      "sha256": "5f78ccc6c6d9e0afee3992da75cac5dd182fbcb87ff8bf9c03eaa5bcbe4ea6e0"
     },
     {
       "path": ".gemini/agents/coordinator.md",
       "strategy": "file",
-      "sha256": "e916bc319b00c3f05f09e233b7b59d5bb269f4783002211e27f05b865d39812b"
+      "sha256": "1c88462557ea3acee10a26d1b94834c72d7f0f2d826ecb44ebf6d2eaa5399e65"
     },
     {
       "path": ".agent-control/roles/research.md",
       "strategy": "file",
-      "sha256": "427595bfe78f4cfbf0f180683756f9dd3c3bba5801e6c35428fbace0b2649096"
+      "sha256": "3f947ac6b6a8e3db429b48ba94c88e78f87cd890c75d36340722ca7f1f7070f8"
     },
     {
       "path": ".gemini/agents/research.md",
       "strategy": "file",
-      "sha256": "56bb198709c11e11e6d95e277a5530959729893c7ecde5be9b1386dac6ae0024"
+      "sha256": "abb7bef24b774a320174bb38e03f9431ae4e1f4b25fa6c1405de48d6c6ea2605"
     },
     {
       "path": ".agent-control/roles/reviewer.md",
       "strategy": "file",
-      "sha256": "0f3d0783aa4edba2d97d3ba8b90ae827b616c9e194646b08fb881754c811ae1a"
+      "sha256": "d399df7d0fd3fcbfb4f6649b4f78d7a8272229613d53cd1ec98f294e621a6de1"
     },
     {
       "path": ".gemini/agents/reviewer.md",
       "strategy": "file",
-      "sha256": "602c0fc5f5346acc4b417fcebb7270a5120182dc0e4802b1f4a2dc7ac05f1086"
+      "sha256": "3bd930de06a92ea5b5463e03960dffc8f73e857c31e1bfc35797cdbbec0f55c6"
     },
     {
       "path": ".gemini/settings.json",
