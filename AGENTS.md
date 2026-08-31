@@ -1,9 +1,9 @@
 # Managed NX Environment Profiles Project Map
 
 Generated file — do not edit manually.
-Standard: `2026.08.30.1`
-Source: `normsexchange-dev/ai-agent-control@36f06f19a351405f910258eddeda582391aa93be`
-Configuration hash: `115f55ec97148f1f7e6b750a280ef7f4d48a2e64a09a04adaac00536f5838c78`
+Standard: `2026.08.31.1`
+Source: `normsexchange-dev/ai-agent-control@99d5893a6a2afcd5611cd1609f1fda1539e509e2`
+Configuration hash: `087176b88d1be9e4ac7b9e17b20ae4c649b7664b2849aad26c6631c25f1c2ff7`
 
 ## Project identity
 
@@ -24,7 +24,7 @@ Configuration hash: `115f55ec97148f1f7e6b750a280ef7f4d48a2e64a09a04adaac00536f58
 - Run configuration verification at startup and before substantial completion. A stale, drifted, malformed, mismatched, or unreachable configuration must not silently report healthy.
 - Configuration failure blocks only work that genuinely depends on the unavailable or unsafe configuration. Finish independent safe work when possible.
 - Coordinate concurrent work through explicit agent identities, roles, repositories, branches/worktrees, and clean handoffs. Never assume one agent per project or computer.
-- Keep machine-local paths and transient runtime state in ignored local configuration. A local override may not weaken shared safety or protected-state invariants.
+- Keep paths and runtime authority in ignored local state. Moves require explicit rebind; copies get a new workspace ID and inherit no authority.
 - Apply changes only to managed files during synchronization. Preserve unrelated vendor settings and project-local state.
 - Treat `AGENTS.md` as the portable project map. Worker identity comes from verified local enrollment, never from a shared clone, hostname guess, GitHub username, or generated project file.
 - Use semantic capabilities rather than vendor names when deciding task eligibility. Missing capability evidence blocks only the action that requires it and must be reported as `UNKNOWN`, `DEGRADED`, or `NO-GO` as appropriate.
