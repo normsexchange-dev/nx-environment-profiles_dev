@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CREDENTIAL_PATTERNS, assert, assertSafeContent, assertSchema, readJson } from './lib/profile-core.mjs';
+import { classifyExecution } from './lib/runtime-capabilities-candidate.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const TAG = 'environment-profiles-v1.0.0';
@@ -12,8 +13,17 @@ const REQUIRED = [
   'registry/profiles.json', 'profiles/persistent-multi-agent-github/profile.json', 'profiles/persistent-multi-agent-github/repository-functions.json',
   'release/rollback-anchors.json', 'adapters/semantics.json',
   'docs/ARCHITECTURE.md', 'docs/PROVISIONING_AND_ENROLLMENT.md', 'docs/OPERATIONS_AND_CHANNELS.md', 'docs/LIFECYCLE_RECOVERY.md', 'docs/SECURITY_AND_PRIVACY.md', 'docs/RUNTIME_ADAPTERS.md', 'docs/GOOGLE_AI_STUDIO.md', 'docs/MIGRATION_AND_COMPATIBILITY.md',
+  'docs/CAPABILITY_EVIDENCE_AND_EXECUTION_CLASSES_dev.md', 'docs/MESSAGE_STORE_RECOVERY_dev.md',
   'scripts/lib/profile-core.mjs', 'scripts/plan-provisioning.mjs', 'scripts/materialize-profile.mjs', 'scripts/enroll-agent.mjs', 'scripts/render-adapter.mjs', 'scripts/validate-profile.mjs', 'scripts/validate-release.mjs',
-  'tests/environment-profile.test.mjs', 'fixtures/provisioning-request.example.json', 'fixtures/enrollment-request-agent-a.json', 'fixtures/enrollment-request-agent-b.json'
+  'scripts/lib/runtime-capabilities-candidate.mjs', 'tests/environment-profile.test.mjs',
+  'tests/environment-profile-candidate.test.mjs', 'fixtures/provisioning-request.example.json',
+  'fixtures/enrollment-request-agent-a.json', 'fixtures/enrollment-request-agent-b.json',
+  'release/candidates/environment-profiles-v1.1.0.json',
+  'candidates/v1.1.0/runtime-capability.example.json',
+  'candidates/v1.1.0/repository-functions.json',
+  'candidates/v1.1.0/schemas/runtime-capability-profile.schema.json',
+  'candidates/v1.1.0/schemas/message-reader-recovery.schema.json',
+  'candidates/v1.1.0/schemas/repository-functions-v1.1.schema.json'
 ];
 const SCHEMA_BINDINGS = [
   ['registry/profiles.json', 'schemas/profile-registry.schema.json'],
@@ -57,6 +67,24 @@ try {
     assert(schema.$id === `https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/${TAG}/${file}`, 'schema_release_identity_invalid', { file });
     assert(schema.type === 'object' && schema.additionalProperties === false, 'schema_not_restrictive', { file });
   }
+  const candidateManifest = readJson(path.join(root, 'release/candidates/environment-profiles-v1.1.0.json'));
+  assert(candidateManifest.candidate_version === '1.1.0' && candidateManifest.release_status === 'candidate_unreleased', 'candidate_release_identity_invalid');
+  assert(candidateManifest.immutable_tag_exists === false && candidateManifest.compatible_release === TAG, 'candidate_release_claim_invalid');
+  assert(candidateManifest.communications_dependency.status === 'development_candidate' && candidateManifest.communications_dependency.immutable_tag_exists === false, 'candidate_communications_claim_invalid');
+  assert(candidateManifest.claims.automatic_model_execution_enabled === false && candidateManifest.claims.public_reference_exchange_verified === false, 'candidate_capability_claim_invalid');
+  for (const name of ['runtime-capability-profile.schema.json', 'message-reader-recovery.schema.json', 'repository-functions-v1.1.schema.json']) {
+    const file = `candidates/v1.1.0/schemas/${name}`;
+    const schema = readJson(path.join(root, file));
+    assert(schema.$schema === 'https://json-schema.org/draft/2020-12/schema', 'candidate_schema_draft_invalid', { file });
+    assert(schema.$id === `https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.1.0/schemas/${name}`, 'candidate_schema_identity_invalid', { file });
+    assert(schema.type === 'object' && schema.additionalProperties === false, 'candidate_schema_not_restrictive', { file });
+  }
+  const candidateRuntime = readJson(path.join(root, 'candidates/v1.1.0/runtime-capability.example.json'));
+  assertSchema(candidateRuntime, readJson(path.join(root, 'candidates/v1.1.0/schemas/runtime-capability-profile.schema.json')), 'candidate-runtime');
+  assert(classifyExecution(candidateRuntime).status === 'VERIFIED', 'candidate_runtime_classification_invalid');
+  const candidateFunctions = readJson(path.join(root, 'candidates/v1.1.0/repository-functions.json'));
+  assertSchema(candidateFunctions, readJson(path.join(root, 'candidates/v1.1.0/schemas/repository-functions-v1.1.schema.json')), 'candidate-repository-functions');
+  assert(candidateFunctions.functions.some((item) => item.function_id === 'nx-message-store' && item.lifecycle === 'candidate-v1.1'), 'candidate_message_store_function_missing');
   const profile = readJson(path.join(root, 'profiles/persistent-multi-agent-github/profile.json'));
   assert(profile.environment_modes.length === 4 && profile.runtime_adapters.length === 7, 'profile_matrix_incomplete');
   const semantics = readJson(path.join(root, 'adapters/semantics.json')).semantic_contract;

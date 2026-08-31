@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.1.0/schemas/runtime-capability-profile.schema.json",
+  "title": "Evidence-backed runtime capability profile candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "environment_id", "runtime_id", "assessed_at", "claimed_execution_class", "automatic_model_execution", "capabilities"],
+  "properties": {
+    "$schema": {"const": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.1.0/schemas/runtime-capability-profile.schema.json"},
+    "schema_version": {"const": "1.1.0"},
+    "environment_id": {"type": "string", "minLength": 1},
+    "runtime_id": {"type": "string", "minLength": 1},
+    "assessed_at": {"type": "string", "format": "date-time"},
+    "claimed_execution_class": {"enum": ["session-only", "interactive-tool", "persistent-execution", "continuous-service"]},
+    "automatic_model_execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "authority_reference"],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "authority_reference": {"type": ["string", "null"]}
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["filesystem", "git", "credential_custody", "durable_persistence", "between_turn_execution", "service_supervision"],
+      "properties": {
+        "filesystem": {"$ref": "#/$defs/capability"},
+        "git": {"$ref": "#/$defs/capability"},
+        "credential_custody": {"$ref": "#/$defs/capability"},
+        "durable_persistence": {"$ref": "#/$defs/capability"},
+        "between_turn_execution": {"$ref": "#/$defs/capability"},
+        "service_supervision": {"$ref": "#/$defs/capability"}
+      }
+    }
+  },
+  "$defs": {
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "mechanism", "evidence", "observed_at", "expires_at"],
+      "properties": {
+        "status": {"enum": ["GO", "DEGRADED", "NO-GO", "UNKNOWN", "CONDITIONAL"]},
+        "mechanism": {"type": "string", "minLength": 1},
+        "evidence": {"type": "string", "minLength": 1},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "expires_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    }
+  }
+}

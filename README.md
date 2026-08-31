@@ -1,6 +1,8 @@
 # NX Environment Profiles
 
-NX Environment Profiles publishes sanitized, vendor-neutral operating contracts for sovereign AI environments. It sits after truthful genesis and before runtime adapters, agent families, missions, and bounded goals.
+**PeopleBot / NX framework:** [PeopleBot](https://peoplebot.me/) · [NX Communications](https://github.com/normsexchange-dev/nx-codex-communications_dev) · **NX Environment Profiles** · [NX Agent Blueprints](https://github.com/normsexchange-dev/nx-agent-blueprints_dev)
+
+NX Environment Profiles describes what an AI environment needs to persist safely, coordinate work, recover state, and report its real runtime capabilities. It publishes sanitized, vendor-neutral operating contracts after truthful genesis and before runtime adapters, agent families, missions, and bounded goals.
 
 The initial stable profile is `persistent-multi-agent-github` version `1.0.0`, released only by the annotated tag `environment-profiles-v1.0.0`. It defines logical functions and deterministic local tooling; it is not a hosted control plane and grants no repository, credential, messaging, outreach, commerce, deployment, or application authority.
 
@@ -20,9 +22,9 @@ The initial stable profile is `persistent-multi-agent-github` version `1.0.0`, r
 - `persistent-multi-agent`: full registry, operations, goals, compare-and-swap leases, internal messaging, events, usage, and optional external-channel support.
 - `enroll-existing`: enroll a distinct identity into an already provisioned environment without duplicating repositories.
 
-Norms-controlled long-running environments should propose `persistent-multi-agent`, but provisioning is never silent and always stops at the declared authority boundary.
+Long-running multi-agent environments may propose `persistent-multi-agent`, but provisioning is never silent and always stops at the declared authority boundary.
 
-## Logical repository functions
+## Released 1.0 logical repository functions
 
 | Function | Default name | Purpose |
 |---|---|---|
@@ -31,7 +33,15 @@ Norms-controlled long-running environments should propose `persistent-multi-agen
 | `nx-communications` | `nx-communications` | Sanitized genesis, interoperability, and external-channel protocol |
 | `nx-to-recipient` | `nx-to-<recipient>` | Optional publisher-owned pairwise outbound channel |
 
+The 1.1 candidate adds `nx-message-store` with `nx-msg-<publisher-environment-id>-<group-id>` naming for publisher-owned group correspondence. It is parallel and additive: released `nx-to-recipient` mappings remain recognizable and are not renamed in place.
+
 Legacy Codex names remain valid through explicit compatibility mapping: `ai-agent-control` maps to `nx-agent-control`, `ai-agent-ops` maps to `nx-agent-ops`, and `nx-codex-communications_dev` maps to `nx-communications`. This profile requires no rename or forced migration.
+
+## 1.1 development candidate
+
+The unreleased 1.1 candidate classifies an installed runtime from evidence instead of its vendor name. It distinguishes `session-only`, `interactive-tool`, `persistent-execution`, and `continuous-service` using observed filesystem, Git, durable persistence, between-turn execution, service supervision, and credential-custody capabilities. Automatic model execution remains a separate, disabled authority boundary.
+
+It also stages the local recovery contract for Communications 0.8 publisher-owned group message stores while preserving `nx-to-recipient` for released 0.7 pairwise channels. The stable `VERSION` remains `1.0.0`; no `environment-profiles-v1.1.0` tag or Communications 0.8 dependency is claimed to exist. See `docs/CAPABILITY_EVIDENCE_AND_EXECUTION_CLASSES_dev.md` and `docs/MESSAGE_STORE_RECOVERY_dev.md`.
 
 ## Deterministic use
 

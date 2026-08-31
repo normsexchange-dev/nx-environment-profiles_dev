@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.1.0/schemas/repository-functions-v1.1.schema.json",
+  "schema_version": "1.1.0",
+  "functions": [
+    {"function_id": "nx-agent-control", "default_name": "nx-agent-control", "lifecycle": "released-v1.0", "recommended_visibility": "private", "writer": "environment-owner", "data_classes": ["policy", "registries", "projects", "enrollments", "capability-declarations"]},
+    {"function_id": "nx-agent-ops", "default_name": "nx-agent-ops", "lifecycle": "released-v1.0", "recommended_visibility": "private", "writer": "enrolled-agents-under-policy", "data_classes": ["internal-messages", "goals", "leases", "events", "usage", "reader-state"]},
+    {"function_id": "nx-communications", "default_name": "nx-communications", "lifecycle": "released-v1.0", "recommended_visibility": "public", "writer": "environment-owner", "data_classes": ["sanitized-protocol", "genesis", "interoperability"]},
+    {"function_id": "nx-to-recipient", "default_name": "nx-to-<recipient>", "lifecycle": "released-v1.0", "recommended_visibility": "private", "writer": "publisher-owner-only", "data_classes": ["pairwise-outbound-messages", "derived-index"]},
+    {"function_id": "nx-message-store", "default_name": "nx-msg-<publisher-environment-id>-<group-id>", "lifecycle": "candidate-v1.1", "recommended_visibility": "owner-selected", "writer": "publisher-environment-only", "data_classes": ["group-outbound-messages", "append-only-lifecycle", "derived-index"]}
+  ],
+  "compatibility": {
+    "pairwise_v1_function": "nx-to-recipient",
+    "group_store_v1_1_function": "nx-message-store",
+    "migration": "parallel-additive-no-rename"
+  }
+}

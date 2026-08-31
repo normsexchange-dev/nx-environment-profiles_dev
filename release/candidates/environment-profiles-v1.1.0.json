@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "candidate_version": "1.1.0",
+  "proposed_tag": "environment-profiles-v1.1.0",
+  "release_status": "candidate_unreleased",
+  "immutable_tag_exists": false,
+  "compatible_release": "environment-profiles-v1.0.0",
+  "communications_dependency": {
+    "version": "0.8.0",
+    "status": "development_candidate",
+    "immutable_tag_exists": false
+  },
+  "changes": [
+    "evidence_backed_execution_classes",
+    "credential_custody_and_between_turn_capabilities",
+    "message_store_reader_recovery",
+    "publisher_group_store_repository_function_candidate",
+    "parallel_pairwise_repository_function_compatibility"
+  ],
+  "claims": {
+    "automatic_model_execution_enabled": false,
+    "continuous_service_proven_for_all_adapters": false,
+    "public_reference_exchange_verified": false
+  },
+  "release_gates": [
+    "communications_0.8_release_decision",
+    "adapter_evidence_review",
+    "recovery_replay_test",
+    "independent_cold_reader_review"
+  ]
+}
