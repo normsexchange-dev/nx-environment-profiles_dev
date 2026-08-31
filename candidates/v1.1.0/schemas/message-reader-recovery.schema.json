@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.1.0/schemas/message-reader-recovery.schema.json",
+  "title": "Environment-local message reader recovery checkpoint candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "environment_id", "store_id", "publisher_repository", "last_sequence", "processed_digests", "parked_messages", "checkpoint_digest", "updated_at", "recovery_policy"],
+  "properties": {
+    "$schema": {"const": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.1.0/schemas/message-reader-recovery.schema.json"},
+    "schema_version": {"const": "1.1.0"},
+    "environment_id": {"type": "string", "minLength": 1},
+    "store_id": {"type": "string", "minLength": 1},
+    "publisher_repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+    "last_sequence": {"type": "integer", "minimum": 0},
+    "processed_digests": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "parked_messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sequence", "message_id", "digest", "semantic", "reason"],
+        "properties": {
+          "sequence": {"type": "integer", "minimum": 1},
+          "message_id": {"type": "string", "minLength": 1},
+          "digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "semantic": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "checkpoint_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "recovery_policy": {"const": "replay-validate-deduplicate-never-auto-act"}
+  }
+}

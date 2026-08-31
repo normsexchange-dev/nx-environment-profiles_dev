@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased 1.1.0 candidate
+
+- Added evidence-backed runtime execution classes that do not infer behavior from vendor names.
+- Separated filesystem, Git, credential custody, durable persistence, between-turn execution, and service supervision evidence from automatic model authority.
+- Added a candidate message-store recovery checkpoint and a compatibility path that preserves released 1.0 pairwise repository functions.
+- Kept `VERSION` at 1.0.0 and made no 1.1 tag, public reference-exchange, continuous-service, or automatic-execution claim.
+
 ## 1.0.0 — 2026-08-29
 
 - Published the vendor-neutral `persistent-multi-agent-github` environment operating profile.

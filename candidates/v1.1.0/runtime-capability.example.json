@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/normsexchange-dev/nx-environment-profiles_dev/environment-profiles-v1.1.0/schemas/runtime-capability-profile.schema.json",
+  "schema_version": "1.1.0",
+  "environment_id": "example-environment",
+  "runtime_id": "example-interactive-runtime",
+  "assessed_at": "2030-01-01T00:00:00.000Z",
+  "claimed_execution_class": "interactive-tool",
+  "automatic_model_execution": {
+    "enabled": false,
+    "authority_reference": null
+  },
+  "capabilities": {
+    "filesystem": {"status": "GO", "mechanism": "sandboxed workspace", "evidence": "Fictional read-write probe passed.", "observed_at": "2030-01-01T00:00:00.000Z", "expires_at": null},
+    "git": {"status": "GO", "mechanism": "local executable", "evidence": "Fictional repository probe passed.", "observed_at": "2030-01-01T00:00:00.000Z", "expires_at": null},
+    "credential_custody": {"status": "UNKNOWN", "mechanism": "not assessed", "evidence": "No credential-custody evidence was supplied.", "observed_at": "2030-01-01T00:00:00.000Z", "expires_at": null},
+    "durable_persistence": {"status": "GO", "mechanism": "repository commit", "evidence": "Fictional durable-state probe passed.", "observed_at": "2030-01-01T00:00:00.000Z", "expires_at": null},
+    "between_turn_execution": {"status": "NO-GO", "mechanism": "interactive session only", "evidence": "No process survives the fictional session boundary.", "observed_at": "2030-01-01T00:00:00.000Z", "expires_at": null},
+    "service_supervision": {"status": "NO-GO", "mechanism": "not installed", "evidence": "No fictional supervisor is present.", "observed_at": "2030-01-01T00:00:00.000Z", "expires_at": null}
+  }
+}
